@@ -1,6 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import Song from '../assets/song.mp3'
-
+import Song from '../assets/song.mp3';
 
 // Create the context
 const UserContext = createContext();
@@ -22,8 +21,29 @@ export const UserProvider = ({ children }) => {
 
     const [name, setName] = useState('');
     const [message, setMessage] = useState('');
-
     const [openSticker, setOpenSticker] = useState(false);
+    const [audio, setAudio] = useState(null);
+    const [isPlaying, setIsPlaying] = useState(false);
+
+    useEffect(() => {
+        const newAudio = new Audio(Song);
+        newAudio.loop = true;
+        setAudio(newAudio);
+
+        return () => {
+            newAudio.pause();
+        };
+    }, []);
+
+    useEffect(() => {
+        if (audio) {
+            if (isPlaying) {
+                audio.play().catch((error) => console.error('Audio playback failed:', error));
+            } else {
+                audio.pause();
+            }
+        }
+    }, [audio, isPlaying]);
 
     const scrollToTop = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -53,26 +73,11 @@ export const UserProvider = ({ children }) => {
 
         setName('');
         setMessage('');
-    }
-
-    const [audio] = useState(new Audio(Song));
-    const [isPlaying, setIsPlaying] = useState(false)
-    audio.loop = true;
-
-    useEffect(() => {
-        if (isPlaying) {
-            audio.play();
-        } else {
-            audio.pause()
-        } return () => {
-            audio.play()
-        }
-    }, [isPlaying]);
+    };
 
     const togglePlayPause = () => {
         setIsPlaying((prev) => !prev);
     };
-
 
     return (
         <UserContext.Provider value={{ messages, setMessages, name, setName, message, setMessage, submitForm, scrollToTop, scrollToBottom, openSticker, setOpenSticker, isPlaying, setIsPlaying, togglePlayPause }}>
