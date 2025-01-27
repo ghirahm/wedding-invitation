@@ -1,5 +1,5 @@
-import Video from '../assets/VideoCall.jpg';
-import OffCam from '../assets/OffCam.jpg';
+import Video from '../assets/videoCall.jpg';
+import OffCam from '../assets/offcam.jpg';
 
 import { Link } from 'react-router';
 
