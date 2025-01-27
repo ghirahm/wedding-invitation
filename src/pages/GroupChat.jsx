@@ -7,7 +7,7 @@ import BubbleChat from '../components/BubbleChat';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUp, faClose } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router';
-import { useUserContext } from '../context/userContext';
+import { useUserContext } from '../context/UserContext';
 
 import Stiker from '../assets/stiker.png';
 
