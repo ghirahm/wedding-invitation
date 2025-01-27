@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useUserContext } from '../context/userContext';
+import { useUserContext } from '../context/UserContext';
 import { faVolumeLow, faVolumeMute } from '@fortawesome/free-solid-svg-icons';
 
 import { motion } from 'framer-motion';

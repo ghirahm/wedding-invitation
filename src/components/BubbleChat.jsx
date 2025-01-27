@@ -4,7 +4,7 @@ import Maps from '../assets/maps.png';
 import Stiker from '../assets/stiker.png';
 
 import { Link } from 'react-router';
-import { useUserContext } from '../context/userContext';
+import { useUserContext } from '../context/UserContext';
 
 export default function BubbleChat({ senderName, message, timestamp, isContinue, isSender, isImage, isSticker }) {
     const {openSticker, setOpenSticker} = useUserContext();

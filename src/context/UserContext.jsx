@@ -1,10 +1,8 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import Song from '../assets/song.mp3';
 
-// Create the context
 const UserContext = createContext();
 
-// Create a provider component
 export const UserProvider = ({ children }) => {
     const [messages, setMessages] = useState([
         { isSender: false, isImage: false, isSticker: false, senderName: 'Pak Camat', isContinue: false, message: 'Assalamualaikum Wr. Wb. Pengumuman, dengan ini saya mengumumkan pernikahan Leyla dan Aldo.', timestamp: '13.57' },

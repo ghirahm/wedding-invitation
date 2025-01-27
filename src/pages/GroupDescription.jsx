@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight, faNoteSticky, faShirt, faSmile, faVideo } from '@fortawesome/free-solid-svg-icons';
 
 import { motion } from 'framer-motion';
-import { useUserContext } from '../context/userContext';
+import { useUserContext } from '../context/UserContext';
 import { useEffect } from 'react';
 
 import DC from '../assets/dress.jpg'

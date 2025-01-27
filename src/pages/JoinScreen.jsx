@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router';
 import GroupLogo from '../assets/logoGroup.png';
 
 import { motion } from 'framer-motion';
-import { useUserContext } from '../context/userContext';
+import { useUserContext } from '../context/UserContext';
 
 export default function JoinScreen() {
     const navigate = useNavigate();

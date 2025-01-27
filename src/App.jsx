@@ -10,7 +10,7 @@ import VideoCall from './pages/VideoCall';
 import GroupDescription from './pages/GroupDescription';
 import PhoneCall from './pages/PhoneCall';
 
-import { UserProvider } from './context/userContext';
+import { UserProvider } from './context/UserContext';
 import MediaPage from './pages/MediaPage';
 import FloatingMusic from './components/FloatingMusic';
 

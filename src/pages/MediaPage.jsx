@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 import Image1 from '../assets/1.png'
 import Image2 from '../assets/2.png'
 import Image3 from '../assets/3.png'
-import { useUserContext } from "../context/userContext";
+import { useUserContext } from "../context/UserContext";
 
 const MediaPage = () => {
     const [activeTab, setActiveTab] = useState("Pre-Wedding");
