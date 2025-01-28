@@ -10,6 +10,7 @@ import { useEffect } from 'react';
 
 import DC from '../assets/dress.jpg'
 import Video from '../assets/video.mp4';
+import Iuran from '../assets/iuran.jpg';
 
 import Image1 from '../assets/1.png'
 import Image2 from '../assets/2.png'
@@ -48,7 +49,7 @@ const GroupDescription = () => {
     };
 
     const handleLoadedData = () => {
-        setIsLoaded(true); // Video is ready to play
+        setIsLoaded(true);
     };
 
     return (
@@ -144,7 +145,7 @@ const GroupDescription = () => {
                         <br />The Bride & Groom, Leyla dan Aldo 💍</p>
                     <h2 className='text-[var(--color-tertiary)] text-md font-bold flex items-center gap-2'><FontAwesomeIcon icon={faShirt} className='w-4 h-4' /> Dress Code</h2>
                     <p className='text-[var(--color-tertiary)] text-sm font-normal'>Tema dresscode gaya tahun 80-an ya!</p>
-                    <img src={DC} className='w-full h-auto bg-[var(--color-accent)] rounded-3xl'></img>
+                    <img src={DC} className='w-full h-auto bg-[var(--color-accent)] rounded-lg'></img>
                 </div>
             </motion.section>
 
@@ -183,7 +184,9 @@ const GroupDescription = () => {
                 className='w-full h-fit flex flex-col bg-[var(--color-primary)] justify-start py-4 px-4 gap-4'>
                 <div className='w-full h-fit flex flex-col justify-between items-start gap-4'>
                     <h2 className='text-[var(--color-tertiary)] text-md font-bold flex items-center gap-2'><FontAwesomeIcon icon={faSmile} className='w-4 h-4' />Iuran Warga Suka-Suka Aja</h2>
-                    <div className='w-full h-[240px] bg-[var(--color-accent)] rounded-lg'></div>
+                    <div className='w-full bg-[var(--color-accent)] rounded-lg overflow-hidden'>
+                        <img src={Iuran} className='w-full h-full object-cover'/>
+                    </div>
                 </div>
             </motion.section>
         </main>

@@ -4,6 +4,10 @@ import GroupLogo from '../assets/logoGroup.png';
 import { motion } from 'framer-motion';
 import { useUserContext } from '../context/UserContext';
 
+import Leyla from '../assets/1.jpg';
+import Aldo from '../assets/2.jpg';
+import RT from '../assets/3.jpg';
+
 export default function JoinScreen() {
     const navigate = useNavigate();
 
@@ -24,7 +28,7 @@ export default function JoinScreen() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ type: "spring", delay: 0.4, duration: 1 }}
                 viewport={{ once: true, amount: 1 }}
-                className="text-[var(--color-primary)] text-3xl font-bold">Grup Warga Sukahati</motion.h1>
+                className="text-[var(--color-primary)] stroke-[var(--color-tertiary)] text-3xl font-extrabold">Grup Warga Sukahati</motion.h1>
             <motion.p
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -37,9 +41,15 @@ export default function JoinScreen() {
                 transition={{ type: "spring", delay: 0.8, duration: 1 }}
                 viewport={{ once: true, amount: 1 }}
                 className='w-full flex flex-row items-center justify-center  relative'>
-                <div className='w-[72px] h-[72px] rounded-full border-2 border-[var(--color-tertiary)] bg-[var(--color-primary)] z-10'></div>
-                <div className='w-[72px] h-[72px] rounded-full border-2 border-[var(--color-tertiary)] bg-[var(--color-primary)] -ml-[24px] z-20'></div>
-                <div className='w-[72px] h-[72px] rounded-full border-2 border-[var(--color-tertiary)] bg-[var(--color-primary)] -ml-[24px] z-30'></div>
+                <div className='w-[72px] h-[72px] rounded-full border-2 border-[var(--color-tertiary)] bg-[var(--color-primary)] z-10 overflow-hidden'>
+                    <img src={Leyla} alt='Profile Image' className='w-full h-full object-cover'/>
+                </div>
+                <div className='w-[72px] h-[72px] rounded-full border-2 border-[var(--color-tertiary)] bg-[var(--color-primary)] -ml-[24px] z-20 overflow-hidden'>
+                    <img src={Aldo} alt='Profile Image' className='w-full h-full object-cover'/>
+                </div>
+                <div className='w-[72px] h-[72px] rounded-full border-2 border-[var(--color-tertiary)] bg-[var(--color-primary)] -ml-[24px] z-30 overflow-hidden'>
+                    <img src={RT} alt='Profile Image' className='w-full h-full object-cover'/>
+                </div>
                 <div className='w-[72px] h-[72px] rounded-full border-2 border-[var(--color-tertiary)] bg-[var(--color-shadow)] -ml-[24px] z-40 flex justify-center items-center text-[var(--color-primary)] text-xl '>50+</div>
             </motion.div>
             <motion.button

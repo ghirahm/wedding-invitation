@@ -31,9 +31,10 @@ const router = createBrowserRouter(
 function App() {
 
   return (
+
     <UserProvider>
       <RouterProvider router={router} />
-      <FloatingMusic />
+        <FloatingMusic/>
     </UserProvider>
   );
 }

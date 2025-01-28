@@ -62,10 +62,9 @@ body {
   animation-name: placeHolderShimmer;
   animation-timing-function: linear;
   background: #f6f7f8;
-  background: linear-gradient(to right, var(--color-shadow) 8%, #f4f4f4 38%, var(--color-shadow) 54%);
+  background: linear-gradient(to right, var(--color-primary) 8%, #f4f4f4 38%, var(--color-primary) 36%);
   background-size: 1000px 640px;
   position: relative;
-  
 }
 
 @keyframes placeHolderShimmer{

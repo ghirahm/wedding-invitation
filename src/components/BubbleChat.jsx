@@ -9,6 +9,16 @@ import { useUserContext } from '../context/UserContext';
 export default function BubbleChat({ senderName, message, timestamp, isContinue, isSender, isImage, isSticker }) {
     const {openSticker, setOpenSticker} = useUserContext();
 
+    const colors = [
+        "var(--color-non-primary)",
+        "var(--color-secondary)",
+        "var(--color-tertiary)",
+        "var(--color-accent)",
+        "var(--color-shadow)",
+      ];
+      
+      const getRandomColor = () => colors[Math.floor(Math.random() * colors.length)];
+
     return (
         <div className='w-full h-fit'>
             {!isSender ?
@@ -28,7 +38,7 @@ export default function BubbleChat({ senderName, message, timestamp, isContinue,
                         </div>
                         <div className={`bg-white ${!isContinue ? "rounded-r-xl rounded-b-xl" : "rounded-xl"} p-4 inline-block w-full`}>
                             <div className="w-full flex flex-col items-start">
-                                {!isContinue && <p className="text-xs text-[var(--color-accent)]">{senderName}</p>}
+                                {!isContinue && <p className="text-xs" style={{ color: getRandomColor() }}>{senderName}</p>}
                                 <p className="text-sm">{message}</p>
                             </div>
                             <div className="w-full flex justify-end">

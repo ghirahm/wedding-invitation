@@ -5,15 +5,15 @@ const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
     const [messages, setMessages] = useState([
-        { isSender: false, isImage: false, isSticker: false, senderName: 'Pak Camat', isContinue: false, message: 'Assalamualaikum Wr. Wb. Pengumuman, dengan ini saya mengumumkan pernikahan Leyla dan Aldo.', timestamp: '13.57' },
-        { isSender: false, isImage: false, isSticker: false, senderName: 'Pak Camat', isContinue: true, message: 'Pernikahan dilaksanakan di Rumah Sarwono Jakarta Selatan tanggal 15 Februari 2025.', timestamp: '13.59' },
-        { isSender: true, isImage: false, isSticker: false, senderName: 'Pak Lurah', isContinue: false, message: 'Lokasinya di sini ya!', timestamp: '14.02' },
+        { isSender: false, isImage: false, isSticker: false, senderName: 'Pak Camat', isContinue: false, message: 'Assalamualaikum Wr. Wb. Pengumuman, dengan ini saya mengumumkan pernikahan Leyla dan Aldo. ✨', timestamp: '13.57' },
+        { isSender: false, isImage: false, isSticker: false, senderName: 'Pak Camat', isContinue: true, message: 'Pernikahan dilaksanakan di Rumah Sarwono Jakarta Selatan tanggal 15 Februari 2025. 👍', timestamp: '13.59' },
+        { isSender: true, isImage: false, isSticker: false, senderName: 'Pak Lurah', isContinue: false, message: 'Lokasinya di sini ya! 📌', timestamp: '14.02' },
         { isSender: true, isImage: true, isSticker: false, senderName: 'Pak Lurah', isContinue: true, message: 'Lokasinya di sini ya!', timestamp: '14.02' },
         { isSender: true, isImage: false, isSticker: true, senderName: 'Pak Lurah', isContinue: true, message: 'Lokasinya di sini ya!', timestamp: '14.02' },
-        { isSender: false, isImage: false, isSticker: false, senderName: 'Pak Lurah', isContinue: false, message: 'Absen siapa aja yang hadir?', timestamp: '14.02' },
-        { isSender: false, isImage: false, isSticker: false, senderName: 'Reza', isContinue: false, message: 'Selamat Selimit', timestamp: '14.02' },
+        { isSender: false, isImage: false, isSticker: false, senderName: 'Pak Lurah', isContinue: false, message: 'Absen siapa aja yang hadir? 😄', timestamp: '14.02' },
+        { isSender: false, isImage: false, isSticker: false, senderName: 'Reza', isContinue: false, message: 'Happy wedding! Semoga ini menjadi awal dari kebahagiaan yang abadi. Selalu saling mencintai dan melengkapi ya! ✨', timestamp: '14.02' },
         { isSender: false, isImage: false, isSticker: false, senderName: 'Ichsan', isContinue: false, message: 'Gokil mantap, ga sabar mau nyobain zuppa soup!', timestamp: '14.03' },
-        { isSender: false, isImage: false, isSticker: false, senderName: 'Risa', isContinue: false, message: 'Keren banget kalian!', timestamp: '14.02' },
+        { isSender: false, isImage: false, isSticker: false, senderName: 'Risa', isContinue: false, message: 'Selamat menempuh hidup baru! Semoga cinta, kebahagiaan, dan kebersamaan selalu menjadi bagian dari perjalanan kalian. Semoga rumah tangga yang dibangun dipenuhi berkah dan kasih sayang. 💕', timestamp: '14.02' },
         { isSender: false, isImage: false, isSticker: false, senderName: 'Fatchur', isContinue: false, message: 'Semoga yang disemogakan tersemogakan, samawa sampai akhir hayat <3', timestamp: '14.02' },
     ]);
 

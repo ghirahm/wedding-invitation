@@ -6,61 +6,68 @@ import { motion } from 'framer-motion';
 import { useState } from 'react';
 
 const FloatingMusic = () => {
-
     const { isPlaying, togglePlayPause } = useUserContext();
     const [position, setPosition] = useState({ top: 36, right: 20 });
 
-    // const handleDragEnd = (_, info) => {
-    //     const windowWidth = window.innerWidth;
-    //     const windowHeight = window.innerHeight;
+    const handleDragEnd = (_, info) => {
+        const { x, y } = info.point;
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
 
-    //     // Get the current position
-    //     const { x, y } = info.point;
+        const distances = [
+            { corner: "topLeft", distance: Math.sqrt(x ** 2 + y ** 2) },
+            { corner: "topRight", distance: Math.sqrt((windowWidth - x) ** 2 + y ** 2) },
+            { corner: "bottomLeft", distance: Math.sqrt(x ** 2 + (windowHeight - y) ** 2) },
+            { corner: "bottomRight", distance: Math.sqrt((windowWidth - x) ** 2 + (windowHeight - y) ** 2) },
+        ];
 
-    //     // Calculate distances to each corner
-    //     const distanceToTopLeft = Math.sqrt(x ** 2 + y ** 2);
-    //     const distanceToTopRight = Math.sqrt((windowWidth - x) ** 2 + y ** 2);
-    //     const distanceToBottomLeft = Math.sqrt(x ** 2 + (windowHeight - y) ** 2);
-    //     const distanceToBottomRight = Math.sqrt(
-    //         (windowWidth - x) ** 2 + (windowHeight - y) ** 2
-    //     );
+        const closest = distances.reduce((prev, curr) =>
+            prev.distance < curr.distance ? prev : curr
+        );
 
-    //     // Find the closest corner
-    //     const closestCorner = Math.min(
-    //         distanceToTopLeft,
-    //         distanceToTopRight,
-    //         distanceToBottomLeft,
-    //         distanceToBottomRight
-    //     );
-
-    //     // Snap to the closest corner
-    //     if (closestCorner === distanceToTopLeft) {
-    //         setPosition({ top: 8, left: 8, right: 'unset', bottom: 'unset' });
-    //     } else if (closestCorner === distanceToTopRight) {
-    //         setPosition({ top: 8, right: 8, left: 'unset', bottom: 'unset' });
-    //     } else if (closestCorner === distanceToBottomLeft) {
-    //         setPosition({ bottom: 8, left: 8, right: 'unset', top: 'unset' });
-    //     } else if (closestCorner === distanceToBottomRight) {
-    //         setPosition({ bottom: 8, right: 8, left: 'unset', top: 'unset' });
-    //     }
-    // };
+        switch (closest.corner) {
+            case "topLeft":
+                setPosition({ top: 8, left: 8, right: "unset", bottom: "unset" });
+                break;
+            case "topRight":
+                setPosition({ top: 8, right: 8, left: "unset", bottom: "unset" });
+                break;
+            case "bottomLeft":
+                setPosition({ bottom: 8, left: 8, top: "unset", right: "unset" });
+                break;
+            case "bottomRight":
+                setPosition({ bottom: 8, right: 8, top: "unset", left: "unset" });
+                break;
+            default:
+                break;
+        }
+    };
 
     return (
         <motion.button
             drag
-            dragElastic={0.5}
+            dragElastic={1}
             dragMomentum={false}
-            // onDragEnd={handleDragEnd}
-            style={{ position: 'fixed', ...position }}
-            className="fixed w-12 h-12 bg-[var(--color-primary)] text-[var(--color-secondary)] rounded-full shadow-lg flex items-center justify-center z-50"
+            dragTransition={{ bounceStiffness: 100, bounceDamping: 10 }}
+            dragConstraints={{
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+            }}
+            whileTap={{ cursor: "grabbing" }}
+            onDragEnd={handleDragEnd}
+            style={{ position: "fixed", ...position }}
+            className="w-12 h-12 bg-white text-[var(--color-secondary)] rounded-full shadow-lg flex items-center justify-center z-50"
             onClick={() => togglePlayPause()}
         >
-            {isPlaying ? 
-                <FontAwesomeIcon icon={faVolumeLow} className="text-lg" />:
+            {isPlaying ? (
+                <FontAwesomeIcon icon={faVolumeLow} className="text-lg" />
+            ) : (
                 <FontAwesomeIcon icon={faVolumeMute} className="text-lg" />
-            }
+            )}
         </motion.button>
-    )
-}
+    );
+};
 
 export default FloatingMusic;
