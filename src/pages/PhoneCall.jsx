@@ -1,9 +1,17 @@
-import React from 'react'
+import { useEffect }from 'react'
 import GroupLogo from '../assets/logoGroup.png'
 
 import { Link } from 'react-router';
+import { useUserContext } from '../context/UserContext';
 
 const PhoneCall = () => {
+    const { setIsPhoneCall } = useUserContext();
+    
+        useEffect(() => {
+            setIsPhoneCall(true);
+        }, [])
+    
+
     return (
         <main className='w-full h-screen relative'>
             <header className='w-full h-[72px] flex flex-row justify-between items-center z-20 px-6 fixed top-0'>

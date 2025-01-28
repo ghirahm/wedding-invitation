@@ -42,13 +42,13 @@ export default function JoinScreen() {
                 viewport={{ once: true, amount: 1 }}
                 className='w-full flex flex-row items-center justify-center  relative'>
                 <div className='w-[72px] h-[72px] rounded-full border-2 border-[var(--color-tertiary)] bg-[var(--color-primary)] z-10 overflow-hidden'>
-                    <img src={Leyla} alt='Profile Image' className='w-full h-full object-cover'/>
+                    <img src={Leyla} alt='Profile Image' className='w-full h-full object-cover' />
                 </div>
                 <div className='w-[72px] h-[72px] rounded-full border-2 border-[var(--color-tertiary)] bg-[var(--color-primary)] -ml-[24px] z-20 overflow-hidden'>
-                    <img src={Aldo} alt='Profile Image' className='w-full h-full object-cover'/>
+                    <img src={Aldo} alt='Profile Image' className='w-full h-full object-cover' />
                 </div>
                 <div className='w-[72px] h-[72px] rounded-full border-2 border-[var(--color-tertiary)] bg-[var(--color-primary)] -ml-[24px] z-30 overflow-hidden'>
-                    <img src={RT} alt='Profile Image' className='w-full h-full object-cover'/>
+                    <img src={RT} alt='Profile Image' className='w-full h-full object-cover' />
                 </div>
                 <div className='w-[72px] h-[72px] rounded-full border-2 border-[var(--color-tertiary)] bg-[var(--color-shadow)] -ml-[24px] z-40 flex justify-center items-center text-[var(--color-primary)] text-xl '>50+</div>
             </motion.div>
@@ -57,7 +57,7 @@ export default function JoinScreen() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ type: "spring", delay: 1, duration: 1 }}
                 viewport={{ once: true, amount: 1 }}
-                onClick={() => {navigate('/group-chat'); if(!isPlaying){togglePlayPause();}}} className='w-[80%] mt-4 font-semibold p-4 border-2 border-[var(--color-tertiary)] rounded-full bg-[var(--color-accent)]'>Join Group</motion.button>
+                onClick={() => { navigate('/group-chat'); if (!isPlaying) { togglePlayPause(); } }} className='w-[80%] mt-4 font-semibold p-4 border-2 border-[var(--color-tertiary)] rounded-full bg-[var(--color-accent)]'>Join Group</motion.button>
         </section>
     );
 }

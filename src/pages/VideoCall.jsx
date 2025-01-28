@@ -4,8 +4,15 @@ import OffCam from '../assets/offcam.jpg';
 import { Link } from 'react-router';
 
 import { motion } from 'framer-motion';
+import { useEffect } from 'react';
+import { useUserContext } from '../context/UserContext';
 
 const VideoCall = () => {
+    const { setIsVideoCall } = useUserContext();
+
+    useEffect(() => {
+        setIsVideoCall(true);
+    }, [])
 
     return (
         <main className='w-full h-screen relative'>
