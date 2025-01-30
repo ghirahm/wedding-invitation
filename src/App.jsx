@@ -1,20 +1,29 @@
 import './App.css'
-import { Suspense } from "react";
+import { lazy, Suspense } from "react";
+import { createBrowserRouter, Route, createRoutesFromElements, RouterProvider } from 'react-router';
 
 //Components
-import SplashScreen from './pages/SplashScreen';
-import JoinScreen from './pages/JoinScreen';
-import GroupChat from './pages/GroupChat';
-
-import { createBrowserRouter, Route, createRoutesFromElements, RouterProvider } from 'react-router';
-import VideoCall from './pages/VideoCall';
-import GroupDescription from './pages/GroupDescription';
-import PhoneCall from './pages/PhoneCall';
-
 import { UserProvider } from './context/UserContext';
-import MediaPage from './pages/MediaPage';
-import FloatingMusic from './components/FloatingMusic';
+
+const SplashScreen = lazy(() => import ('./pages/SplashScreen'))
+const JoinScreen = lazy(() => import ('./pages/JoinScreen'))
+const GroupChat = lazy(() => import('./pages/GroupChat'))
+const GroupDescription = lazy(() => import('./pages/GroupDescription'))
+const MediaPage = lazy(() => import('./pages/MediaPage'))
+const VideoCall = lazy(() => './pages/VideoCall')
+const PhoneCall = lazy(() => './pages/PhoneCall')
+const FloatingMusic = lazy(() => './component/FloatingMusic')
+
+// import SplashScreen from './pages/SplashScreen';
+// import JoinScreen from './pages/JoinScreen';
+// import GroupChat from './pages/GroupChat';
+// import GroupDescription from './pages/GroupDescription';
+// import MediaPage from './pages/MediaPage';
+// import VideoCall from './pages/VideoCall';
+// import PhoneCall from './pages/PhoneCall';
+// import FloatingMusic from './components/FloatingMusic';
 import Loading from './components/Loading';
+
 
 const router = createBrowserRouter(
     createRoutesFromElements(
