@@ -16,7 +16,7 @@ import FloatingMusic from './components/FloatingMusic';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route basename='/'>
+    <Route>
       <Route path='/' element={<SplashScreen />} />
       <Route path='/join' element={<JoinScreen />} />
       <Route path='/group-chat' element={<GroupChat />} />
