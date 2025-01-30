@@ -25,7 +25,8 @@ const router = createBrowserRouter(
       <Route path='/phone-call' element={<PhoneCall />} />
       <Route path='/media' element={<MediaPage />} />
     </Route>
-  )
+  ),
+  { basename: "/presentation" }
 )
 
 function App() {
