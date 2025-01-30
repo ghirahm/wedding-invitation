@@ -10,9 +10,7 @@ export default function BubbleChat({ senderName, message, timestamp, isContinue,
     const {openSticker, setOpenSticker} = useUserContext();
 
     const colors = [
-        "var(--color-non-primary)",
         "var(--color-secondary)",
-        "var(--color-tertiary)",
         "var(--color-accent)",
         "var(--color-shadow)",
       ];

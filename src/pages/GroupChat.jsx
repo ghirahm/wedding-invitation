@@ -81,7 +81,7 @@ export default function GroupChat() {
 
                 <div className="flex flex-row items-center justify-end gap-4 w-[30%]">
                     {/* Button Video Call */}
-                    <Link to='/video-call' className='h-[24px] bounce bounce-delay-2 relative'>
+                    <Link to='/video-call'  onClick={() => { if (isPlaying) { togglePlayPause(); } }} className='h-[24px] bounce bounce-delay-2 relative'>
                         {
                             !isVideoCall &&
                             <div className="absolute -top-2 -right-1 w-2.5 h-2.5 rounded-full bg-[var(--color-shadow)] animate-pulse"></div>
@@ -90,7 +90,7 @@ export default function GroupChat() {
                     </Link>
 
                     {/* Button Phone Call */}
-                    <Link to='/phone-call' className='h-[24px] bounce bounce-delay-3 relative'>
+                    <Link to='/phone-call'  onClick={() => { if (isPlaying) { togglePlayPause(); } }} className='h-[24px] bounce bounce-delay-3 relative'>
                         {
                             !isPhoneCall &&
                             <div className="absolute -top-2 -right-1 w-2.5 h-2.5 rounded-full bg-[var(--color-shadow)] animate-pulse"></div>
@@ -118,8 +118,8 @@ export default function GroupChat() {
                         </div>
                         <div className={`absolute right-0 mt-2 w-48 bg-white border rounded-lg shadow-lg transition-all duration-300 ${isOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}>
                             <ul className="py-2 flex flex-col">
-                                <Link to='/description' className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Deskripsi Grup</Link>
-                                <Link to='/join' className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Keluar dari Grup</Link>
+                                <Link to='/description' onClick={() => { if (isPlaying) { togglePlayPause(); } isOpen(false) }} className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Deskripsi Grup</Link>
+                                <Link to='/join' onClick={() => { setIsOpen(false) }} className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Keluar dari Grup</Link>
                             </ul>
                         </div>
                     </div>
@@ -180,10 +180,14 @@ export default function GroupChat() {
 
             {/* Button Form Chat */}
             <footer className='fixed bottom-0 w-full h-[72px] z-40 flex items-center bg-transparent'>
-                <form onSubmit={(event) => submitForm(event)} className='w-full flex flex-row justify-center items-center gap-2 z-30'>
+                <form onSubmit={(event) => submitForm(event)} className='w-full flex flex-row justify-center items-center gap-1 z-30'>
                     <input value={name} onChange={(e) => setName(e.target.value)} className='px-4 py-2 rounded-full w-[30%] border border-gray-300' type="name" placeholder="Name..."></input>
                     <input value={message} onChange={(e) => setMessage(e.target.value)} className='px-4 py-2 rounded-full w-[50%] border border-gray-300' type="text" placeholder="Messages..."></input>
-                    <button type="submit" className=""></button>
+                    <button type="submit" className="w-[42px] h-[42px] bg-[var(--color-shadow)] rounded-full flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-4 text-white">
+                            <path d="M3.478 2.404a.75.75 0 0 0-.926.941l2.432 7.905H13.5a.75.75 0 0 1 0 1.5H4.984l-2.432 7.905a.75.75 0 0 0 .926.94 60.519 60.519 0 0 0 18.445-8.986.75.75 0 0 0 0-1.218A60.517 60.517 0 0 0 3.478 2.404Z" />
+                        </svg>
+                    </button>
                 </form>
             </footer>
         </main>

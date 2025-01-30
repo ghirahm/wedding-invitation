@@ -19,7 +19,7 @@ import Image3 from '../assets/3.png'
 const GroupDescription = () => {
 
     // Context
-    const { scrollToTop, isVideoCall, isPhoneCall } = useUserContext();
+    const { scrollToTop, isVideoCall, isPhoneCall, isPlaying, togglePlayPause } = useUserContext();
 
     // Images Scroll
     const images = {
@@ -38,16 +38,16 @@ const GroupDescription = () => {
 
     // Video Function
     const videoRef = useRef(null);
-    const [isPlaying, setIsPlaying] = useState(true);
+    const [isPlayingVideo, setIsPlayingVideo] = useState(true);
     const [isLoaded, setIsLoaded] = useState(false);
 
-    const togglePlayPause = () => {
+    const togglePlayPauseVideo = () => {
         if (videoRef.current.paused) {
             videoRef.current.play();
-            setIsPlaying(true);
+            setIsPlayingVideo(true);
         } else {
             videoRef.current.pause();
-            setIsPlaying(false);
+            setIsPlayingVideo(false);
         }
     };
 
@@ -78,6 +78,7 @@ const GroupDescription = () => {
                     <div className="w-[160px] h-[160px] rounded-full overflow-hidden">
                         <img src={GroupLogo} alt="Grup Warga Sukahati" className='w-full h-full' />
                     </div>
+
                     {/* Button Dropdown */}
                     <div className="relative">
                         <div className="h-[24px] cursor-pointer" onClick={toggleDropdown}>
@@ -98,8 +99,8 @@ const GroupDescription = () => {
                         </div>
                         <div className={`absolute right-0 mt-2 w-48 bg-white border rounded-lg shadow-lg transition-all duration-300 ${isOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}>
                             <ul className="py-2 flex flex-col">
-                                <Link to='/description' className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Deskripsi Grup</Link>
-                                <Link to='/join' className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Keluar dari Grup</Link>
+                                <Link to='/description' onClick={() => { if (isPlaying) { togglePlayPause(); } setIsOpen(false) }} className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Deskripsi Grup</Link>
+                                <Link to='/join' onClick={() => { setIsOpen(false) }} className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Keluar dari Grup</Link>
                             </ul>
                         </div>
                     </div>
@@ -109,7 +110,7 @@ const GroupDescription = () => {
                     <h2 className='text-[var(--color-tertiary)] text-md font-normal'>Hajatan Cinta Leyla dan Aldo</h2>
                 </div>
                 <div className='w-full grid grid-cols-4 h-fit gap-2'>
-                    <Link to='/phone-call' className='relative w-full h-[72px] rounded-xl flex flex-col items-center justify-center border-[1px] border-[var(--color-tertiary)] active:scale-95'>
+                    <Link to='/phone-call' onClick={() => { if (isPlaying) { togglePlayPause(); } }} className='relative w-full h-[72px] rounded-xl flex flex-col items-center justify-center border-[1px] border-[var(--color-tertiary)] active:scale-95'>
                         {
                             !isPhoneCall &&
                             <div className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[var(--color-shadow)] animate-pulse"></div>
@@ -121,7 +122,7 @@ const GroupDescription = () => {
                         </div>
                         <p className='text-[var(--color-tertiary)] text-xs font-normal pt-2'>Panggilan</p>
                     </Link>
-                    <Link to='/video-call' className='relative w-full h-[72px] rounded-xl flex flex-col items-center justify-center border-[1px] border-[var(--color-tertiary)] active:scale-95'>
+                    <Link to='/video-call'  onClick={() => { if (isPlaying) { togglePlayPause(); } }} className='relative w-full h-[72px] rounded-xl flex flex-col items-center justify-center border-[1px] border-[var(--color-tertiary)] active:scale-95'>
                         {
                             !isVideoCall &&
                             <div className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[var(--color-shadow)] animate-pulse"></div>
@@ -163,11 +164,11 @@ const GroupDescription = () => {
                 <div className='w-full h-fit flex flex-col justify-between items-start gap-4 relative'>
                     <video ref={videoRef}
                         src={Video}
-                        className={`w-full rounded-lg ${!isLoaded ? "gradient-loading" : "opacity-100"} duration-300`}
+                        className={`w-full rounded-lg ${!isLoaded ? "gradient-loading" : "opacity-100"} duration-300 border-[1px] border-[var(--color-tertiary)]`}
                         autoPlay
                         playsInline
-                        onClick={togglePlayPause}
-                        onLoadedData={handleLoadedData} />
+                        onClick={togglePlayPauseVideo}
+                        onLoadedData={handleLoadedData}/>
                     <h2 className='text-[var(--color-tertiary)] text-md font-bold flex items-center gap-2'><FontAwesomeIcon icon={faNoteSticky} className='w-4 h-4' />Hajatan Cinta Leyla & Aldo</h2>
                     <p className='text-[var(--color-tertiary)] text-sm font-normal'>
                         Halo!
