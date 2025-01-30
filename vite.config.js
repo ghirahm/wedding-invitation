@@ -6,9 +6,7 @@ export default defineConfig({
   plugins: [react()],
   base: '/',
   server: {
-    host: '0.0.0.0', // Listen on all network interfaces
-    port: 5173,
-    historyApiFallback: true,      // Optional: Explicitly define the port
+    historyApiFallback: true,
   },
   assetsInclude: ['**/*.mp3']
 })
