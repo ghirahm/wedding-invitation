@@ -28,8 +28,16 @@ import Loading from './components/Loading';
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route>
-            <Route path='/' element={<SplashScreen />} />
-            <Route path='/join' element={<JoinScreen />} />
+            <Route path='/' element={
+                <Suspense fallback={<Loading />}>
+                    <SplashScreen />
+                </Suspense>
+            } />
+            <Route path='/join' element={
+                <Suspense fallback={<Loading />}>
+                <JoinScreen />
+                </Suspense>
+            } />
             <Route path='/group-chat' element={<GroupChat />} />
             <Route path='/description' element={<GroupDescription />} />
             <Route path='/video-call' element={<VideoCall />} />
@@ -42,7 +50,6 @@ const router = createBrowserRouter(
 function App() {
 
     return (
-
         <UserProvider>
             <Suspense fallback={<Loading/>}>
                 <RouterProvider router={router} />

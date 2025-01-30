@@ -95,8 +95,8 @@ const GroupDescription = () => {
                     </div>
 
                     {/* Button Dropdown */}
-                    <div className="relative">
-                        <div className="h-[24px] cursor-pointer" onClick={toggleDropdown} ref={dropdownRef}>
+                    <div className="relative" ref={dropdownRef}>
+                        <div className="h-[24px] cursor-pointer" onClick={toggleDropdown}>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
@@ -181,10 +181,13 @@ const GroupDescription = () => {
                         src={Video}
                         className={`w-full rounded-lg ${!isLoaded ? "gradient-loading" : "opacity-100"} duration-300 border-[1px] border-[var(--color-tertiary)]`}
                         autoPlay
-                        preload="auto"
                         playsInline
                         onClick={togglePlayPauseVideo}
-                        onLoadedData={handleLoadedData}/>
+                        onLoadedData={handleLoadedData}
+                        controls={false}
+                        disableRemotePlayback
+                        crossOrigin="anonymous"
+                        />
                     <h2 className='text-[var(--color-tertiary)] text-md font-bold flex items-center gap-2'><FontAwesomeIcon icon={faNoteSticky} className='w-4 h-4' />Hajatan Cinta Leyla & Aldo</h2>
                     <p className='text-[var(--color-tertiary)] text-sm font-normal'>
                         Halo!
