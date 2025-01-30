@@ -1,4 +1,5 @@
 import './App.css'
+import { Suspense } from "react";
 
 //Components
 import SplashScreen from './pages/SplashScreen';
@@ -13,30 +14,33 @@ import PhoneCall from './pages/PhoneCall';
 import { UserProvider } from './context/UserContext';
 import MediaPage from './pages/MediaPage';
 import FloatingMusic from './components/FloatingMusic';
+import Loading from './components/Loading';
 
 const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route>
-      <Route path='/' element={<SplashScreen />} />
-      <Route path='/join' element={<JoinScreen />} />
-      <Route path='/group-chat' element={<GroupChat />} />
-      <Route path='/description' element={<GroupDescription />} />
-      <Route path='/video-call' element={<VideoCall />} />
-      <Route path='/phone-call' element={<PhoneCall />} />
-      <Route path='/media' element={<MediaPage />} />
-    </Route>
-  )
+    createRoutesFromElements(
+        <Route>
+            <Route path='/' element={<SplashScreen />} />
+            <Route path='/join' element={<JoinScreen />} />
+            <Route path='/group-chat' element={<GroupChat />} />
+            <Route path='/description' element={<GroupDescription />} />
+            <Route path='/video-call' element={<VideoCall />} />
+            <Route path='/phone-call' element={<PhoneCall />} />
+            <Route path='/media' element={<MediaPage />} />
+        </Route>
+    )
 )
 
 function App() {
 
-  return (
+    return (
 
-    <UserProvider>
-      <RouterProvider router={router} />
-        <FloatingMusic/>
-    </UserProvider>
-  );
+        <UserProvider>
+            <Suspense fallback={<Loading/>}>
+                <RouterProvider router={router} />
+                <FloatingMusic />
+            </Suspense>
+        </UserProvider>
+    );
 }
 
 export default App;

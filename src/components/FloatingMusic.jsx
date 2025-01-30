@@ -9,14 +9,16 @@ const FloatingMusic = () => {
     const { isPlaying, togglePlayPause } = useUserContext();
     const [position, setPosition] = useState({ top: 36, right: 20 });
 
-    const handleDragEnd = (_, info) => {
-        const { x, y } = info.point;
+    const handleDragEnd = (event) => {
+        console.log(event)
+        const x = event.clientX;
+        const y = event.clientY;
         const windowWidth = window.innerWidth;
         const windowHeight = window.innerHeight;
 
         const distances = [
             { corner: "topLeft", distance: Math.sqrt(x ** 2 + y ** 2) },
-            { corner: "topRight", distance: Math.sqrt((windowWidth - x) ** 2 + y ** 2) },
+            { corner: "topRight", distance: Math.sqrt((windowWidth - x) ** 2 +  y ** 2) },
             { corner: "bottomLeft", distance: Math.sqrt(x ** 2 + (windowHeight - y) ** 2) },
             { corner: "bottomRight", distance: Math.sqrt((windowWidth - x) ** 2 + (windowHeight - y) ** 2) },
         ];
@@ -56,7 +58,7 @@ const FloatingMusic = () => {
                 bottom: 0,
             }}
             whileTap={{ cursor: "grabbing" }}
-            onDragEnd={handleDragEnd}
+            onDragEnd={(event) => handleDragEnd(event)}
             style={{ position: "fixed", ...position }}
             className="w-12 h-12 bg-white text-[var(--color-secondary)] rounded-full shadow-lg flex items-center justify-center z-50"
             onClick={() => togglePlayPause()}

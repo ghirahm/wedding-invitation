@@ -35,6 +35,26 @@ export default function GroupChat() {
         }
     }, [messages])
 
+    const dropdownRef = useRef(null);
+    const stickerRef = useRef(null);
+
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setIsOpen(false);
+            }
+            if (stickerRef.current && !stickerRef.current.contains(event.target)) {
+                setOpenSticker(false);
+            }
+        }
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
+
+
     // Dropdown Function
     const [isOpen, setIsOpen] = useState(false);
     const toggleDropdown = () => setIsOpen((prev) => !prev);
@@ -99,7 +119,7 @@ export default function GroupChat() {
                     </Link>
 
                     {/* Button Dropdown */}
-                    <div className="relative">
+                    <div className="relative" ref={dropdownRef}>
                         <div className="h-[24px] cursor-pointer" onClick={toggleDropdown}>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -118,7 +138,7 @@ export default function GroupChat() {
                         </div>
                         <div className={`absolute right-0 mt-2 w-48 bg-white border rounded-lg shadow-lg transition-all duration-300 ${isOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}>
                             <ul className="py-2 flex flex-col">
-                                <Link to='/description' onClick={() => { if (isPlaying) { togglePlayPause(); } isOpen(false) }} className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Deskripsi Grup</Link>
+                                <Link to='/description' onClick={() => { if (isPlaying) { togglePlayPause(); } setIsOpen(false) }} className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Deskripsi Grup</Link>
                                 <Link to='/join' onClick={() => { setIsOpen(false) }} className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Keluar dari Grup</Link>
                             </ul>
                         </div>
@@ -163,7 +183,7 @@ export default function GroupChat() {
             </div>
 
             {/* Sticker Details */}
-            <div className={`fixed bottom-0 w-full h-[240px] rounded-t-3xl bg-[var(--color-primary)] z-50 p-8 flex flex-col items-center justify-start gap-4 transition-transform duration-300 ${openSticker ? "translate-y-0" : "translate-y-full"}`}>
+            <div className={`fixed bottom-0 w-full h-[240px] rounded-t-3xl bg-[var(--color-primary)] z-50 p-8 flex flex-col items-center justify-start gap-4 transition-transform duration-300 ${openSticker ? "translate-y-0" : "translate-y-full"}`} ref={stickerRef}>
                 <button onClick={() => setOpenSticker(false)} className='w-full flex flex-row items-center justify-end'>
                     <FontAwesomeIcon icon={faClose} className='w-[24px] h-[24px] text-[var(--color-tertiary)]'></FontAwesomeIcon>
                 </button>
@@ -181,8 +201,8 @@ export default function GroupChat() {
             {/* Button Form Chat */}
             <footer className='fixed bottom-0 w-full h-[72px] z-40 flex items-center bg-transparent'>
                 <form onSubmit={(event) => submitForm(event)} className='w-full flex flex-row justify-center items-center gap-1 z-30'>
-                    <input value={name} onChange={(e) => setName(e.target.value)} className='px-4 py-2 rounded-full w-[30%] border border-gray-300' type="name" placeholder="Name..."></input>
-                    <input value={message} onChange={(e) => setMessage(e.target.value)} className='px-4 py-2 rounded-full w-[50%] border border-gray-300' type="text" placeholder="Messages..."></input>
+                    <input value={name} onChange={(e) => setName(e.target.value)} required className='px-4 py-2 rounded-full w-[30%] border border-gray-300' type="name" placeholder="Name..."></input>
+                    <input value={message} onChange={(e) => setMessage(e.target.value)} required className='px-4 py-2 rounded-full w-[50%] border border-gray-300' type="text" placeholder="Messages..."></input>
                     <button type="submit" className="w-[42px] h-[42px] bg-[var(--color-shadow)] rounded-full flex items-center justify-center">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-4 text-white">
                             <path d="M3.478 2.404a.75.75 0 0 0-.926.941l2.432 7.905H13.5a.75.75 0 0 1 0 1.5H4.984l-2.432 7.905a.75.75 0 0 0 .926.94 60.519 60.519 0 0 0 18.445-8.986.75.75 0 0 0 0-1.218A60.517 60.517 0 0 0 3.478 2.404Z" />

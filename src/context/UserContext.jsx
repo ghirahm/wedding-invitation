@@ -1,6 +1,20 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import Song from '../assets/song.mp3';
 
+
+//PRELOAD
+import GroupLogo from '../assets/logoGroup.png';
+import Background from '../assets/bg-chat.png';
+import Stiker from '../assets/stiker.png';
+import Maps from '../assets/maps.png';
+import DC from '../assets/dress.jpg'
+import Video from '../assets/video.mp4';
+import Iuran from '../assets/iuran.jpg';
+import Image1 from '../assets/1.png'
+import Image2 from '../assets/2.png'
+import Image3 from '../assets/3.png'
+
+
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
@@ -16,6 +30,10 @@ export const UserProvider = ({ children }) => {
         { isSender: false, isImage: false, isSticker: false, senderName: 'Risa', isContinue: false, message: 'Selamat menempuh hidup baru! Semoga cinta, kebahagiaan, dan kebersamaan selalu menjadi bagian dari perjalanan kalian. Semoga rumah tangga yang dibangun dipenuhi berkah dan kasih sayang. 💕', timestamp: '14.02' },
         { isSender: false, isImage: false, isSticker: false, senderName: 'Fatchur', isContinue: false, message: 'Semoga yang disemogakan tersemogakan, samawa sampai akhir hayat <3', timestamp: '14.02' },
     ]);
+
+    const assetsPreload = [
+        
+    ]
 
     const [name, setName] = useState('');
     const [message, setMessage] = useState('');

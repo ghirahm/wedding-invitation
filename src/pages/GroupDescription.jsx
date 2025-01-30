@@ -9,7 +9,7 @@ import { useUserContext } from '../context/UserContext';
 import { useEffect } from 'react';
 
 import DC from '../assets/dress.jpg'
-import Video from '../assets/video.mp4';
+import Video from '../assets/video.webm';
 import Iuran from '../assets/iuran.jpg';
 
 import Image1 from '../assets/1.png'
@@ -59,6 +59,21 @@ const GroupDescription = () => {
     const [isOpen, setIsOpen] = useState(false);
     const toggleDropdown = () => setIsOpen((prev) => !prev);
 
+    const dropdownRef = useRef(null);
+
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setIsOpen(false);
+            }
+        }
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
+
     return (
         <main className='w-full h-fit bg-[var(--color-primary)] flex flex-col gap-2'>
 
@@ -81,7 +96,7 @@ const GroupDescription = () => {
 
                     {/* Button Dropdown */}
                     <div className="relative">
-                        <div className="h-[24px] cursor-pointer" onClick={toggleDropdown}>
+                        <div className="h-[24px] cursor-pointer" onClick={toggleDropdown} ref={dropdownRef}>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
@@ -166,6 +181,7 @@ const GroupDescription = () => {
                         src={Video}
                         className={`w-full rounded-lg ${!isLoaded ? "gradient-loading" : "opacity-100"} duration-300 border-[1px] border-[var(--color-tertiary)]`}
                         autoPlay
+                        preload="auto"
                         playsInline
                         onClick={togglePlayPauseVideo}
                         onLoadedData={handleLoadedData}/>

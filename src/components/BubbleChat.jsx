@@ -7,15 +7,15 @@ import { Link } from 'react-router';
 import { useUserContext } from '../context/UserContext';
 
 export default function BubbleChat({ senderName, message, timestamp, isContinue, isSender, isImage, isSticker }) {
-    const {openSticker, setOpenSticker} = useUserContext();
+    const { openSticker, setOpenSticker } = useUserContext();
 
     const colors = [
         "var(--color-secondary)",
         "var(--color-accent)",
         "var(--color-shadow)",
-      ];
-      
-      const getRandomColor = () => colors[Math.floor(Math.random() * colors.length)];
+    ];
+
+    const getRandomColor = () => colors[Math.floor(Math.random() * colors.length)];
 
     return (
         <div className='w-full h-fit'>
@@ -49,7 +49,7 @@ export default function BubbleChat({ senderName, message, timestamp, isContinue,
                 <div className="w-full h-fit flex flex-row items-start justify-end">
                     <div className='max-w-[70%] relative active:scale-95 active:duration-300 active:opacity-80'>
                         {isSticker ?
-                            <div className='w-full flex flex-col items-end animate-pulse' onClick={() => setOpenSticker(true)}>
+                            <div className='w-full flex flex-col items-end animate-pulse' onClick={() => {openSticker ? setOpenSticker(false) : setOpenSticker(true)}}>
                                 <div className='w-[80%] h-auto'>
                                     <img src={Stiker} alt='Sticker' />
                                 </div>
