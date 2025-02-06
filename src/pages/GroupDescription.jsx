@@ -5,12 +5,23 @@ import { motion } from 'framer-motion';
 
 import { useUserContext } from '../context/UserContext';
 
-import { faAngleRight, faNoteSticky, faShirt, faSmile, faVideo } from '@fortawesome/free-solid-svg-icons';
+import { faAngleRight, faNoteSticky, faShirt, faSmile, faVideo, faClose } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import GroupLogo from '../assets/logoGroup.png';
-import Image1 from '../assets/A.jpg'
-import Image2 from '../assets/B.jpg'
-import Image3 from '../assets/C.jpg'
+import Image1 from '../assets/A.jpg';
+import Image2 from '../assets/B.jpg';
+import Image3 from '../assets/C.jpg';
+import Image4 from '../assets/X1.jpg';
+import Image5 from '../assets/X2.jpg';
+import Image6 from '../assets/X3.jpg';
+import Image7 from '../assets/X4.jpg';
+import Image8 from '../assets/X5.jpg';
+import Image9 from '../assets/X6.jpg';
+import Image10 from '../assets/X7.jpg';
+import Image11 from '../assets/X8.jpg';
+import Image12 from '../assets/X9.jpg';
+import Image13 from '../assets/X10.jpg';
+
 import DC from '../assets/dress.jpg'
 import Timeline from '../assets/timeline.jpg'
 import Video from '../assets/video.webm';
@@ -19,14 +30,24 @@ import Iuran from '../assets/iuran.jpg';
 const GroupDescription = () => {
 
     // Context
-    const { scrollToTop, isVideoCall, isPhoneCall, isPlaying, togglePlayPause } = useUserContext();
+    const { scrollToTop, isVideoCall, isPhoneCall, isPlaying, togglePlayPause, imagePop, handleCloseImagePop, handleImagePop } = useUserContext();
 
     // Images Scroll
     const images = {
         "Pre-Wedding": [
             Image1,
             Image2,
-            Image3
+            Image3,
+            Image4,
+            Image5,
+            Image6,
+            Image7,
+            Image8,
+            Image9,
+            Image10,
+            Image11,
+            Image12,
+            Image13
         ]
     }
 
@@ -108,7 +129,6 @@ const GroupDescription = () => {
         document.body.removeChild(textArea);
     };
 
-
     useEffect(() => {
         if (showToast) {
             const timer = setTimeout(() => {
@@ -119,7 +139,18 @@ const GroupDescription = () => {
     }, [showToast]);
 
     return (
-        <main className='w-full h-fit bg-[var(--color-primary)] flex flex-col gap-2'>
+        <main className='w-full h-fit bg-[var(--color-primary)] flex flex-col gap-2 relative'>
+
+            {imagePop && (
+                <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 flex justify-center items-center transition-opacity duration-500 opacity-100">
+                    <img src={imagePop} alt="Popped Image" className="w-[90%] max-h-full object-contain rounded-xl transform scale-95 opacity-0 transition-all duration-500 ease-in-out image-pop-up" />
+                    <button
+                        onClick={() => handleCloseImagePop()}
+                        className="absolute top-4 right-4 bg-white rounded-full p-2">
+                        <FontAwesomeIcon icon={faClose} className="text-black" />
+                    </button>
+                </div>
+            )}
 
             {/* Section Group Profile */}
             <motion.section
@@ -234,20 +265,22 @@ const GroupDescription = () => {
                     />
                     <h2 className='text-[var(--color-tertiary)] text-md font-bold flex items-center gap-2'><FontAwesomeIcon icon={faNoteSticky} className='w-4 h-4' />Hajatan Cinta Leyla & Aldo</h2>
                     <p className='text-[var(--color-tertiary)] text-sm font-normal'>
-                        Halo!
-                        <br />Karena kalian adalah orang penting yang mengisi hari-hari kami, kami ingin informasikan bahwa kami akan segera menikah! 💖
-                        <br /><br />Kami dengan sukacita mengundang kalian untuk merayakan momen bahagia ini bersama kami, pada acara Pernikahan Leyla & Aldo yang akan diselenggarakan pada:
-                        <br /><br /><span className='font-bold'>Tanggal: 15 Februari 2025
-                            <br />Tempat: Rumah Sarwono, Bekasi</span>
-                        <br /><br />Karena acara ini akan diadakan dalam suasana yang lebih intim dan terbatas, kami memohon maaf karena tidak bisa mengundang banyak orang. Hanya keluarga dan sahabat terdekat yang akan hadir.
-                        <br /><br />Namun, kami berharap kalian semua bisa mendoakan yang terbaik untuk perjalanan hidup kami bersama, dan semoga pernikahan ini membawa kebahagiaan yang abadi.
-                        <br /><br />Dengan penuh cinta,
-                        <br />The Bride & Groom, Leyla dan Aldo 💍
+                        Assalamualaikum Warahmatullahi Wabarakatuh!
+                        <br /><br />Dengan penuh syukur dan bahagia, kami ingin berbagi kabar gembira—kami telah melangsungkan akad nikah pada 6 September 2024 di Masjid At-Thohir. Kini, kami ingin merayakan kebahagiaan ini bersama orang-orang terkasih dalam acara resepsi pernikahan kami.
+
+                        <br /><br />📅 Tanggal: 15 Februari 2025
+                        <br />⏰ Waktu: 18.00 WIB
+                        <br />📍 Tempat: Rumah Sarwono, Jakarta Selatan
+
+                        <br /><br />Doa dan restu kalian adalah anugerah terindah bagi perjalanan baru kami. Semoga pernikahan ini penuh berkah, cinta, dan kebahagiaan yang abadi.
+
+                        <br /><br />Dengan cinta,
+                        <br />Leyla & Aldo 💍💕
                     </p>
-                    <img src={Timeline} className='w-full h-auto bg-[var(--color-accent)] rounded-lg'></img>
+                    <img onClick={() => handleImagePop(Timeline)} src={Timeline} className='w-full h-auto bg-[var(--color-accent)] rounded-lg'></img>
                     <h2 className='text-[var(--color-tertiary)] text-md font-bold flex items-center gap-2'><FontAwesomeIcon icon={faShirt} className='w-4 h-4' /> Dress Code</h2>
                     <p className='text-[var(--color-tertiary)] text-sm font-normal'>Tema dresscode gaya tahun 80-an ya!</p>
-                    <img src={DC} className='w-full h-auto bg-[var(--color-accent)] rounded-lg'></img>
+                    <img onClick={() => handleImagePop(DC)} src={DC} className='w-full h-auto bg-[var(--color-accent)] rounded-lg'></img>
                 </div>
             </motion.section>
 
@@ -266,8 +299,9 @@ const GroupDescription = () => {
                         <div className='flex flex-row overflow-x-auto gap-2 w-full overflow-hidden scrollbar-hide'>
                             {
                                 images["Pre-Wedding"].map((src, index) => (
-                                    <div key={index} className='w-[200px] h-fit bg-[var(--color-secondary)] flex-shrink-0 rounded-lg overflow-hidden'>
+                                    <div key={index} className='w-[200px] h-[280px] bg-[var(--color-secondary)] flex-shrink-0 rounded-lg overflow-hidden'>
                                         <img
+                                            onClick={() => handleImagePop(src)}
                                             src={src}
                                             alt={`${"Pre-Wedding"} ${index + 1}`}
                                             className="w-full h-full object-cover bg-[var(--color-secondary)] hover:scale-105 transition-all duration-300"
@@ -290,7 +324,7 @@ const GroupDescription = () => {
                 <div className='w-full h-fit flex flex-col justify-between items-start gap-4 relative'>
                     <h2 className='text-[var(--color-tertiary)] text-md font-bold flex items-center gap-2'><FontAwesomeIcon icon={faSmile} className='w-4 h-4' />Iuran Warga Suka-Suka Aja</h2>
                     <div className='w-full bg-[var(--color-accent)] rounded-lg overflow-hidden'>
-                        <img src={Iuran} className='w-full h-full object-cover' />
+                        <img onClick={() => handleImagePop(Iuran)} src={Iuran} className='w-full h-full object-cover' />
                     </div>
                     <button
                         onClick={() => handleCopy()}

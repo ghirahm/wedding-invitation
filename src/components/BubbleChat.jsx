@@ -17,8 +17,8 @@ const getRandomColor = () => {
     return colors[Math.floor(Math.random() * colors.length)];
 };
 
-export default function BubbleChat({ senderName, message, timestamp, isContinue, isSender, isImage, isSticker }) {
-    const { openSticker, setOpenSticker } = useUserContext();
+export default function BubbleChat({ senderName, message, timestamp, isContinue, isSender, isImage, isSticker, imageLink }) {
+    const { openSticker, setOpenSticker, handleImagePop } = useUserContext();
 
     // const colors = [
     //     "var(--color-secondary)",
@@ -47,11 +47,18 @@ export default function BubbleChat({ senderName, message, timestamp, isContinue,
                             }
                         </div>
                         <div className={`bg-white ${!isContinue ? "rounded-r-xl rounded-b-xl" : "rounded-xl"} p-4 inline-block w-full`}>
-                            <div className="w-full flex flex-col items-start">
+                            <div className="w-full flex flex-col items-start gap-2">
                                 {!isContinue && <p className="text-xs" style={{ color }}>{senderName}</p>}
-                                <p className="text-sm">{message}</p>
+                                {isImage ?
+                                    <div onClick={() => handleImagePop(imageLink)} className='w-full overflow-hidden rounded-lg'>
+                                        <img src={imageLink} alt='Poster' className='w-full object-cover'></img>
+                                    </div>
+                                    :
+                                    <p className="text-sm">{message}</p>
+                                }
+                                {/* <p className="text-sm">{message}</p> */}
                             </div>
-                            <div className="w-full flex justify-end">
+                            <div className="w-full flex justify-end pt-2">
                                 <p className="text-xs opacity-50">{timestamp}</p>
                             </div>
                         </div>

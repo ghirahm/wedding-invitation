@@ -13,11 +13,12 @@ import Background from '../assets/bg-chat.png';
 import Stiker from '../assets/stiker.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUp, faClose } from '@fortawesome/free-solid-svg-icons';
+import Arrow from '../assets/arrow.png';
 
 export default function GroupChat() {
 
     // Context
-    const { messages, name, message, setName, setMessage, submitForm, scrollToTop, scrollToBottom, openSticker, setOpenSticker, isPlaying, togglePlayPause, isVideoCall, isPhoneCall, messageData, sendLoading, setSendLoading } = useUserContext();
+    const { messages, name, message, setName, setMessage, submitForm, scrollToTop, scrollToBottom, openSticker, setOpenSticker, isPlaying, togglePlayPause, isVideoCall, isPhoneCall, messageData, sendLoading, imagePop, handleCloseImagePop } = useUserContext();
 
     // Scroll Function
     const messagesEndRef = useRef(null);
@@ -105,6 +106,13 @@ export default function GroupChat() {
                             !isVideoCall &&
                             <div className="absolute -top-2 -right-1 w-2.5 h-2.5 rounded-full bg-[var(--color-shadow)] animate-pulse"></div>
                         }
+                        {
+                            !isVideoCall &&
+                            <div className="fixed animate-bounce -bottom-8 z-50 duration-100">
+                                <img src={Arrow} className='w-[24px] h-[24px]' />
+                            </div>
+
+                        }
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="text-[var(--color-tertiary)] h-full"><path strokeLinecap="round" strokeLinejoin="round" d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z" /></svg>
                     </Link>
 
@@ -113,6 +121,12 @@ export default function GroupChat() {
                         {
                             !isPhoneCall &&
                             <div className="absolute -top-2 -right-1 w-2.5 h-2.5 rounded-full bg-[var(--color-shadow)] animate-pulse"></div>
+                        }
+                        {
+                            !isPhoneCall &&
+                            <div className="fixed animate-bounce -bottom-8 z-50 duration-100">
+                                <img src={Arrow} className='w-[24px] h-[24px]' />
+                            </div>
                         }
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="text-[var(--color-tertiary)] h-full"><path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" /></svg>
                     </Link>
@@ -145,6 +159,17 @@ export default function GroupChat() {
                 </div>
             </header>
 
+            {imagePop && (
+                <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 flex justify-center items-center transition-opacity duration-500 opacity-100">
+                    <img src={imagePop} alt="Popped Image" className="w-[90%] max-h-full object-contain rounded-xl transform scale-95 opacity-0 transition-all duration-500 ease-in-out image-pop-up" />
+                    <button
+                        onClick={() => handleCloseImagePop()}
+                        className="absolute top-4 right-4 bg-white rounded-full p-2">
+                        <FontAwesomeIcon icon={faClose} className="text-black" />
+                    </button>
+                </div>
+            )}
+
             {/* Background Chat */}
             <div className='fixed w-full h-screen bg-[var(--color-secondary)] z-0'>
                 <img src={Background} className="w-full h-full" />
@@ -173,7 +198,7 @@ export default function GroupChat() {
                                     once: true,
                                     amount: 1
                                 }}>
-                                <BubbleChat isSender={m.isSender} isSticker={m.isSticker} isImage={m.isImage} senderName={m.senderName} isContinue={m.isContinue} message={m.message} timestamp={m.timestamp} />
+                                <BubbleChat isSender={m.isSender} isSticker={m.isSticker} isImage={m.isImage} senderName={m.senderName} isContinue={m.isContinue} message={m.message} timestamp={m.timestamp} imageLink={m.imageLink} />
                             </motion.div>
                         ))
                     }

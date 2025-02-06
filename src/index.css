@@ -5,74 +5,122 @@
 
 
 :root {
-  --color-primary: #F7EAD0;
-  --color-non-primary: #d5c9b0;
-  --color-secondary: #55A8B6;
-  --color-tertiary: #2A2D1C;
-  --color-accent: #F19824;
-  --color-shadow: #D27284;
+    --color-primary: #F7EAD0;
+    --color-non-primary: #d5c9b0;
+    --color-secondary: #55A8B6;
+    --color-tertiary: #2A2D1C;
+    --color-accent: #F19824;
+    --color-shadow: #D27284;
 }
 
 body {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-style: normal;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-style: normal;
 }
 
 @keyframes bounce {
-  0%, 20% {
-      transform: translateY(0);
-  }
-  10% {
-      transform: translateY(-5px);
-  }
-  100% {
-      transform: translateY(0);
-  }
+
+    0%,
+    20% {
+        transform: translateY(0);
+    }
+
+    10% {
+        transform: translateY(-5px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes shakeRotate {
+    0% {
+        transform: translateX(0) rotate(0deg);
+    }
+
+    25% {
+        transform: translateX(-5px) rotate(-5deg);
+    }
+
+    50% {
+        transform: translateX(5px) rotate(5deg);
+    }
+
+    75% {
+        transform: translateX(-5px) rotate(-5deg);
+    }
+
+    100% {
+        transform: translateX(0) rotate(0deg);
+    }
+}
+
+.shakeRotate {
+    animation: shakeRotate 0.5s ease-in-out infinite;
 }
 
 .bounce {
-  animation: bounce 5s ease-in-out infinite;
+    animation: bounce 5s ease-in-out infinite;
 }
 
 .bounce-delay-1 {
-  animation-delay: 2s;
+    animation-delay: 2s;
 }
 
 .bounce-delay-2 {
-  animation-delay: 4s;
+    animation-delay: 4s;
 }
 
 .bounce-delay-3 {
-  animation-delay: 6s;
+    animation-delay: 6s;
 }
 
 .scrollbar-hide::-webkit-scrollbar {
-  display: none;
+    display: none;
 }
 
 .scrollbar-hide {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none;   /* Firefox */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
 }
 
 .gradient-loading {
-  animation-duration: 1.8s;
-  animation-fill-mode: forwards;
-  animation-iteration-count: infinite;
-  animation-name: placeHolderShimmer;
-  animation-timing-function: linear;
-  background: #f6f7f8;
-  background: linear-gradient(to right, var(--color-primary) 8%, #f4f4f4 38%, var(--color-primary) 36%);
-  background-size: 1000px 640px;
-  position: relative;
+    animation-duration: 1.8s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: placeHolderShimmer;
+    animation-timing-function: linear;
+    background: #f6f7f8;
+    background: linear-gradient(to right, var(--color-primary) 8%, #f4f4f4 38%, var(--color-primary) 36%);
+    background-size: 1000px 640px;
+    position: relative;
 }
 
-@keyframes placeHolderShimmer{
-  0%{
-      background-position: -468px 0
-  }
-  100%{
-      background-position: 468px 0
-  }
+@keyframes placeHolderShimmer {
+    0% {
+        background-position: -468px 0
+    }
+
+    100% {
+        background-position: 468px 0
+    }
 }
 
+@keyframes fadeInPop {
+    0% {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.image-pop-up {
+    animation: fadeInPop 0.5s ease-in-out forwards;
+}

@@ -1,28 +1,22 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import Song from '../assets/song.mp3';
 
-//PRELOAD
-// import GroupLogo from '../assets/logoGroup.png';
-// import Background from '../assets/bg-chat.png';
-// import Stiker from '../assets/stiker.png';
-// import Maps from '../assets/maps.png';
-// import DC from '../assets/dress.jpg';
-// import Video from '../assets/video.mp4';
-// import Iuran from '../assets/iuran.jpg';
-// import Image1 from '../assets/1.png';
-// import Image2 from '../assets/2.png';
-// import Image3 from '../assets/3.png';
+import Undangan from '../assets/undangan.jpg';
+import Poster from '../assets/poster.jpg';
 
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
     const [messages, setMessages] = useState([
-        { isSender: false, isImage: false, isSticker: false, senderName: 'Pak Camat', isContinue: false, message: 'Assalamualaikum Wr. Wb. Pengumuman, dengan ini saya mengumumkan pernikahan Leyla dan Aldo. ✨', timestamp: '13.57' },
-        { isSender: false, isImage: false, isSticker: false, senderName: 'Pak Camat', isContinue: true, message: 'Pernikahan dilaksanakan di Rumah Sarwono Jakarta Selatan tanggal 15 Februari 2025. 👍', timestamp: '13.59' },
+        { isSender: false, isImage: false, isSticker: false, senderName: 'Pak Camat', isContinue: false, message: 'Assalamualaikum Wr. Wb warga Kabupaten Suka Hati.. 📣 Pengumuman 📣 dengan ini saya mengumumkan hajatan pernikahan salah satu warga kita Leyla dan Aldo. 🌷', timestamp: '13.57' },
+        { isSender: false, isImage: false, isSticker: false, senderName: 'Pak Camat', isContinue: true, message: 'Pernikahan dilaksanakan di Rumah Sarwono Jakarta Selatan, Sabtu 15 Februari 2025. 👍 bisa dilihat di undangan berikut ini', timestamp: '13.59' },
+        { isSender: false, isImage: true, imageLink: Undangan, isSticker: false, senderName: 'Pak Camat', isContinue: false, message: '📌 Lokasinya di sini ya!', timestamp: '14.02' },
         { isSender: true, isImage: false, isSticker: false, senderName: 'Pak Lurah', isContinue: false, message: '📌 Lokasinya di sini ya!', timestamp: '14.02' },
         { isSender: true, isImage: true, isSticker: false, senderName: 'Pak Lurah', isContinue: true, message: 'Lokasinya di sini ya!', timestamp: '14.02' },
         { isSender: true, isImage: false, isSticker: true, senderName: 'Pak Lurah', isContinue: true, message: 'Lokasinya di sini ya!', timestamp: '14.02' },
-        { isSender: false, isImage: false, isSticker: false, senderName: 'Pak Lurah', isContinue: false, message: 'Absen siapa aja yang hadir? 😄', timestamp: '14.02' },
+        { isSender: false, isImage: false, isSticker: false, senderName: 'Pak Camat', isContinue: false, message: 'Sekedar mengingatkan🙏 bakal ada nobar juga mulainya jam 18.30 tenggggg! jadi usahakan jangan telat ya warga..', timestamp: '14.04' },
+        { isSender: false, isImage: true, imageLink: Poster, isSticker: false, senderName: 'Pak Camat', isContinue: false, message: '', timestamp: '14.04' },
+        { isSender: false, isImage: false, isSticker: false, senderName: 'Pak Lurah', isContinue: false, message: 'Absen siapa aja yang hadir? 😄', timestamp: '14.05' },
     ]);
 
     const [messageData, setMessageData] = useState([]);
@@ -36,6 +30,8 @@ export const UserProvider = ({ children }) => {
 
     const [isVideoCall, setIsVideoCall] = useState(false);
     const [isPhoneCall, setIsPhoneCall] = useState(false);
+
+    const [imagePop, setImagePop] = useState();
 
     // MUSIC START
     useEffect(() => {
@@ -202,6 +198,14 @@ export const UserProvider = ({ children }) => {
         }
     };
 
+    const handleImagePop = (imageLink) => {
+        setImagePop(imageLink);
+    };
+    
+    const handleCloseImagePop = () => {
+        setImagePop(null);
+    };
+
     return (
         <UserContext.Provider
         value={{ 
@@ -227,7 +231,11 @@ export const UserProvider = ({ children }) => {
             messageData,
             setMessageData,
             sendLoading,
-            setSendLoading }}>
+            setSendLoading,
+            imagePop,
+            setImagePop,
+            handleImagePop,
+            handleCloseImagePop }}>
             {children}
         </UserContext.Provider>
     );
