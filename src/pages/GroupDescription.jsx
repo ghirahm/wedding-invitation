@@ -1,20 +1,20 @@
+import { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router';
-import { useRef, useState } from 'react';
-import GroupLogo from '../assets/logoGroup.png';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleRight, faNoteSticky, faShirt, faSmile, faVideo } from '@fortawesome/free-solid-svg-icons';
 
 import { motion } from 'framer-motion';
-import { useUserContext } from '../context/UserContext';
-import { useEffect } from 'react';
 
+import { useUserContext } from '../context/UserContext';
+
+import { faAngleRight, faNoteSticky, faShirt, faSmile, faVideo } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import GroupLogo from '../assets/logoGroup.png';
+import Image1 from '../assets/A.jpg'
+import Image2 from '../assets/B.jpg'
+import Image3 from '../assets/C.jpg'
 import DC from '../assets/dress.jpg'
+import Timeline from '../assets/timeline.jpg'
 import Video from '../assets/video.webm';
 import Iuran from '../assets/iuran.jpg';
-
-import Image1 from '../assets/1.png'
-import Image2 from '../assets/2.png'
-import Image3 from '../assets/3.png'
 
 const GroupDescription = () => {
 
@@ -26,8 +26,7 @@ const GroupDescription = () => {
         "Pre-Wedding": [
             Image1,
             Image2,
-            Image3,
-            Image1,
+            Image3
         ]
     }
 
@@ -35,6 +34,9 @@ const GroupDescription = () => {
     useEffect(() => {
         scrollToTop();
     }, [])
+
+    // Toast Copy
+    const [showToast, setShowToast] = useState(false);
 
     // Video Function
     const videoRef = useRef(null);
@@ -73,6 +75,48 @@ const GroupDescription = () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, []);
+
+    const handleCopy = () => {
+        const copyText = "5770706574";
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(copyText)
+                .then(() => {
+                    setShowToast(true);
+                })
+                .catch((err) => {
+                    console.error('Failed to copy text: ', err);
+                    fallbackCopyTextToClipboard(copyText);
+                });
+        } else {
+            fallbackCopyTextToClipboard(copyText);
+        }
+    };
+
+    const fallbackCopyTextToClipboard = (text) => {
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        textArea.style.position = 'absolute';
+        textArea.style.left = '-9999px';
+        document.body.appendChild(textArea);
+        textArea.select();
+        try {
+            document.execCommand('copy');
+            setShowToast(true);
+        } catch (err) {
+            console.error('Fallback failed to copy text: ', err);
+        }
+        document.body.removeChild(textArea);
+    };
+
+
+    useEffect(() => {
+        if (showToast) {
+            const timer = setTimeout(() => {
+                setShowToast(false);
+            }, 2000);
+            return () => clearTimeout(timer);
+        }
+    }, [showToast]);
 
     return (
         <main className='w-full h-fit bg-[var(--color-primary)] flex flex-col gap-2'>
@@ -137,7 +181,7 @@ const GroupDescription = () => {
                         </div>
                         <p className='text-[var(--color-tertiary)] text-xs font-normal pt-2'>Panggilan</p>
                     </Link>
-                    <Link to='/video-call'  onClick={() => { if (isPlaying) { togglePlayPause(); } }} className='relative w-full h-[72px] rounded-xl flex flex-col items-center justify-center border-[1px] border-[var(--color-tertiary)] active:scale-95'>
+                    <Link to='/video-call' onClick={() => { if (isPlaying) { togglePlayPause(); } }} className='relative w-full h-[72px] rounded-xl flex flex-col items-center justify-center border-[1px] border-[var(--color-tertiary)] active:scale-95'>
                         {
                             !isVideoCall &&
                             <div className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[var(--color-shadow)] animate-pulse"></div>
@@ -149,7 +193,7 @@ const GroupDescription = () => {
                         </div>
                         <p className='text-[var(--color-tertiary)] text-xs font-normal pt-2'>Video</p>
                     </Link>
-                    <Link to='/media' className='w-full h-[72px] rounded-xl flex flex-col items-center justify-center border-[1px] border-[var(--color-tertiary)]'>
+                    <Link className='w-full h-[72px] rounded-xl flex flex-col items-center justify-center border-[1px] border-[var(--color-tertiary)]'>
                         <div className='w-[24px] h-[24px]'>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="text-[var(--color-shadow)] h-full">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75" />
@@ -187,7 +231,7 @@ const GroupDescription = () => {
                         controls={false}
                         disableRemotePlayback
                         crossOrigin="anonymous"
-                        />
+                    />
                     <h2 className='text-[var(--color-tertiary)] text-md font-bold flex items-center gap-2'><FontAwesomeIcon icon={faNoteSticky} className='w-4 h-4' />Hajatan Cinta Leyla & Aldo</h2>
                     <p className='text-[var(--color-tertiary)] text-sm font-normal'>
                         Halo!
@@ -198,7 +242,9 @@ const GroupDescription = () => {
                         <br /><br />Karena acara ini akan diadakan dalam suasana yang lebih intim dan terbatas, kami memohon maaf karena tidak bisa mengundang banyak orang. Hanya keluarga dan sahabat terdekat yang akan hadir.
                         <br /><br />Namun, kami berharap kalian semua bisa mendoakan yang terbaik untuk perjalanan hidup kami bersama, dan semoga pernikahan ini membawa kebahagiaan yang abadi.
                         <br /><br />Dengan penuh cinta,
-                        <br />The Bride & Groom, Leyla dan Aldo 💍</p>
+                        <br />The Bride & Groom, Leyla dan Aldo 💍
+                    </p>
+                    <img src={Timeline} className='w-full h-auto bg-[var(--color-accent)] rounded-lg'></img>
                     <h2 className='text-[var(--color-tertiary)] text-md font-bold flex items-center gap-2'><FontAwesomeIcon icon={faShirt} className='w-4 h-4' /> Dress Code</h2>
                     <p className='text-[var(--color-tertiary)] text-sm font-normal'>Tema dresscode gaya tahun 80-an ya!</p>
                     <img src={DC} className='w-full h-auto bg-[var(--color-accent)] rounded-lg'></img>
@@ -212,7 +258,7 @@ const GroupDescription = () => {
                 viewport={{ once: true, amount: 0.5 }}
                 className='w-full h-fit flex flex-col bg-[var(--color-primary)] border-b border-[var(--color-tertiary)] justify-start py-4 px-4 gap-4'>
                 <div className='w-full h-fit flex flex-col justify-between items-start gap-4'>
-                    <Link to='/media' className='w-full flex flex-row justify-between items-center'>
+                    <Link className='w-full flex flex-row justify-between items-center'>
                         <h2 className='text-[var(--color-tertiary)] text-md font-bold flex items-center gap-2'><FontAwesomeIcon icon={faVideo} className='w-4 h-4' />Media, Tautan, Dokumen</h2>
                         <div className='w-4 h-4'><FontAwesomeIcon icon={faAngleRight} className='w-full h-full' /></div>
                     </Link>
@@ -220,7 +266,7 @@ const GroupDescription = () => {
                         <div className='flex flex-row overflow-x-auto gap-2 w-full overflow-hidden scrollbar-hide'>
                             {
                                 images["Pre-Wedding"].map((src, index) => (
-                                    <div key={index} className='w-[200px] h-[200px] bg-[var(--color-secondary)] flex-shrink-0 rounded-lg overflow-hidden'>
+                                    <div key={index} className='w-[200px] h-fit bg-[var(--color-secondary)] flex-shrink-0 rounded-lg overflow-hidden'>
                                         <img
                                             src={src}
                                             alt={`${"Pre-Wedding"} ${index + 1}`}
@@ -241,11 +287,22 @@ const GroupDescription = () => {
                 whileInView={{ opacity: 1, y: 0, transition: { type: "spring", delay: 0.2, duration: 1 } }}
                 viewport={{ once: true, amount: 0.2 }}
                 className='w-full h-fit flex flex-col bg-[var(--color-primary)] justify-start py-4 px-4 gap-4'>
-                <div className='w-full h-fit flex flex-col justify-between items-start gap-4'>
+                <div className='w-full h-fit flex flex-col justify-between items-start gap-4 relative'>
                     <h2 className='text-[var(--color-tertiary)] text-md font-bold flex items-center gap-2'><FontAwesomeIcon icon={faSmile} className='w-4 h-4' />Iuran Warga Suka-Suka Aja</h2>
                     <div className='w-full bg-[var(--color-accent)] rounded-lg overflow-hidden'>
                         <img src={Iuran} className='w-full h-full object-cover' />
                     </div>
+                    <button
+                        onClick={() => handleCopy()}
+                        className='w-[100%] mt-4 font-semibold p-4 border-2 border-[var(--color-tertiary)] rounded-full bg-[var(--color-accent)] active:scale-95 active:duration-300'>
+                        Copy Rekening
+                    </button>
+
+                    {showToast && (
+                        <div className="fixed bottom-[120px] left-0 right-0 mx-auto w-[80%] h-fit bg-[var(--color-secondary)] text-[var(--color-primary)] px-4 py-2 rounded-lg shadow-md transition-opacity duration-300 z-20">
+                            Number copied to clipboard!
+                        </div>
+                    )}
                 </div>
             </motion.section>
         </main>

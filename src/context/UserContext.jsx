@@ -1,18 +1,17 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import Song from '../assets/song.mp3';
 
-
 //PRELOAD
 // import GroupLogo from '../assets/logoGroup.png';
 // import Background from '../assets/bg-chat.png';
 // import Stiker from '../assets/stiker.png';
 // import Maps from '../assets/maps.png';
-// import DC from '../assets/dress.jpg'
+// import DC from '../assets/dress.jpg';
 // import Video from '../assets/video.mp4';
 // import Iuran from '../assets/iuran.jpg';
-// import Image1 from '../assets/1.png'
-// import Image2 from '../assets/2.png'
-// import Image3 from '../assets/3.png'
+// import Image1 from '../assets/1.png';
+// import Image2 from '../assets/2.png';
+// import Image3 from '../assets/3.png';
 
 const UserContext = createContext();
 
@@ -24,11 +23,10 @@ export const UserProvider = ({ children }) => {
         { isSender: true, isImage: true, isSticker: false, senderName: 'Pak Lurah', isContinue: true, message: 'Lokasinya di sini ya!', timestamp: '14.02' },
         { isSender: true, isImage: false, isSticker: true, senderName: 'Pak Lurah', isContinue: true, message: 'Lokasinya di sini ya!', timestamp: '14.02' },
         { isSender: false, isImage: false, isSticker: false, senderName: 'Pak Lurah', isContinue: false, message: 'Absen siapa aja yang hadir? 😄', timestamp: '14.02' },
-        { isSender: false, isImage: false, isSticker: false, senderName: 'Reza', isContinue: false, message: 'Happy wedding! Semoga ini menjadi awal dari kebahagiaan yang abadi. Selalu saling mencintai dan melengkapi ya! ✨', timestamp: '14.02' },
-        { isSender: false, isImage: false, isSticker: false, senderName: 'Ichsan', isContinue: false, message: 'Gokil mantap, ga sabar mau nyobain zuppa soup!', timestamp: '14.03' },
-        { isSender: false, isImage: false, isSticker: false, senderName: 'Risa', isContinue: false, message: 'Selamat menempuh hidup baru! Semoga cinta, kebahagiaan, dan kebersamaan selalu menjadi bagian dari perjalanan kalian. Semoga rumah tangga yang dibangun dipenuhi berkah dan kasih sayang. 💕', timestamp: '14.02' },
-        { isSender: false, isImage: false, isSticker: false, senderName: 'Fatchur', isContinue: false, message: 'Semoga yang disemogakan tersemogakan, samawa sampai akhir hayat <3', timestamp: '14.02' },
     ]);
+
+    const [messageData, setMessageData] = useState([]);
+    const [sendLoading, setSendLoading] = useState(false);
 
     const [name, setName] = useState('');
     const [message, setMessage] = useState('');
@@ -39,6 +37,7 @@ export const UserProvider = ({ children }) => {
     const [isVideoCall, setIsVideoCall] = useState(false);
     const [isPhoneCall, setIsPhoneCall] = useState(false);
 
+    // MUSIC START
     useEffect(() => {
         const newAudio = new Audio(Song);
         newAudio.loop = true;
@@ -49,6 +48,7 @@ export const UserProvider = ({ children }) => {
         };
     }, []);
 
+    // MUSIC START
     useEffect(() => {
         if (audio) {
             if (isPlaying) {
@@ -59,42 +59,175 @@ export const UserProvider = ({ children }) => {
         }
     }, [audio, isPlaying]);
 
-    const scrollToTop = () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    };
+    useEffect(() => {
+        getChat();
+    }, [])
 
-    const scrollToBottom = (sectionRef) => {
-        sectionRef.current?.scrollIntoView({ behavior: 'smooth' });
-    };
-
-    const submitForm = (event) => {
-        event.preventDefault();
-
-        const currentTimestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
-        setMessages((prevMessages) => [
-            ...prevMessages,
-            {
-                isSender: false,
-                isImage: false,
-                isSticker: false,
-                senderName: name,
-                isContinue: false,
-                message: message,
-                timestamp: currentTimestamp,
-            },
-        ]);
-
-        setName('');
-        setMessage('');
-    };
-
+    // MUSIC PLAY PAUSE
     const togglePlayPause = () => {
         setIsPlaying((prev) => !prev);
     };
 
+    // SCROLL TO TOP
+    const scrollToTop = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    // SCROLL TO BOTTOM
+    const scrollToBottom = (sectionRef) => {
+        sectionRef.current?.scrollIntoView({ behavior: 'smooth' });
+    };
+
+    // SUBMIT FORM
+    // const submitForm = async (event) => {
+    //     event.preventDefault();
+        
+    //     const currentTimestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    
+    //     if (!message.trim()) return;
+    
+    //     try {
+    //         const response = await fetch(`${import.meta.env.API_URL}/invitations`, {
+    //             method: "POST",
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //             },
+    //             body: JSON.stringify({
+    //                 isSender: false,
+    //                 isImage: false,
+    //                 isSticker: false,
+    //                 senderName: name,
+    //                 isContinue: false,
+    //                 message: message,
+    //                 timestamp: currentTimestamp,
+    //             }),
+    //         });
+    
+    //         if (!response.ok) throw new Error("Failed to send message");
+    
+    //         const data = await response.json();
+    //         console.log("Message sent successfully:", data);
+    
+    //     } catch (error) {
+    //         console.error("Error:", error);
+    //     }
+    
+    //     setName('');
+    //     setMessage('');
+    // };    
+
+
+    // const getChat = async (event) => {
+    //     event.preventDefault();
+    //     try {
+    //         const response = await fetch(`${import.meta.env.VITE_API_URL}/invitations`, {
+    //             method: 'GET',
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //             },
+    //         });
+
+    //         if (!response.ok) {
+    //             throw new Error('Network response was not ok');
+    //         }
+
+    //         const data = await response.json();
+    //         console.log(data)
+    //     } catch (err) {
+    //         console.error("Error:", err);
+    //     }
+    // };
+
+    // SUBMIT FORM
+    
+    const submitForm = async (event) => {
+        event.preventDefault();
+        setSendLoading(true)
+    
+        const currentTimestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    
+        if (!message.trim()) return;
+    
+        try {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/messages`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    chat_id: 1,
+                    sender_name: name,
+                    is_sender: false,
+                    message_data: {
+                        isImage: false,
+                        isSticker: false,
+                        isContinue: false,
+                        message: message,
+                        timestamp: currentTimestamp,
+                    }
+                }),
+            });
+    
+            if (!response.ok) throw new Error("Failed to send message");
+    
+            const data = await response.json();
+            getChat();
+    
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    
+        setName('');
+        setMessage('');
+    };
+    
+    const getChat = async () => {
+        try {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/messages/1`, {
+                method: 'GET',
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+    
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            setMessageData(data);
+        } catch (err) {
+            console.error("Error:", err);
+        } finally {
+            setSendLoading(false);
+        }
+    };
+
     return (
-        <UserContext.Provider value={{ messages, setMessages, name, setName, message, setMessage, submitForm, scrollToTop, scrollToBottom, openSticker, setOpenSticker, isPlaying, setIsPlaying, togglePlayPause, isVideoCall, setIsVideoCall, isPhoneCall, setIsPhoneCall }}>
+        <UserContext.Provider
+        value={{ 
+            messages, 
+            setMessages, 
+            name, 
+            setName, 
+            message, 
+            setMessage, 
+            submitForm, 
+            scrollToTop, 
+            scrollToBottom, 
+            openSticker, 
+            setOpenSticker, 
+            isPlaying, 
+            setIsPlaying, 
+            togglePlayPause, 
+            isVideoCall, 
+            setIsVideoCall, 
+            isPhoneCall, 
+            setIsPhoneCall, 
+            getChat,
+            messageData,
+            setMessageData,
+            sendLoading,
+            setSendLoading }}>
             {children}
         </UserContext.Provider>
     );

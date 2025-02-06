@@ -4,9 +4,9 @@ import { Link } from 'react-router';
 
 import { motion } from 'framer-motion';
 
-import { useUserContext } from '../context/UserContext';
+import { useUserContext } from '../context/UserContext.jsx';
 
-import BubbleChat from '../components/BubbleChat'
+import BubbleChat from '../components/BubbleChat';
 
 import GroupLogo from '../assets/logoGroup.png';
 import Background from '../assets/bg-chat.png';
@@ -15,9 +15,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUp, faClose } from '@fortawesome/free-solid-svg-icons';
 
 export default function GroupChat() {
-    
+
     // Context
-    const { messages, name, message, setName, setMessage, submitForm, scrollToTop, scrollToBottom, openSticker, setOpenSticker, isPlaying, togglePlayPause, isVideoCall, isPhoneCall } = useUserContext();
+    const { messages, name, message, setName, setMessage, submitForm, scrollToTop, scrollToBottom, openSticker, setOpenSticker, isPlaying, togglePlayPause, isVideoCall, isPhoneCall, messageData, sendLoading, setSendLoading } = useUserContext();
 
     // Scroll Function
     const messagesEndRef = useRef(null);
@@ -33,7 +33,7 @@ export default function GroupChat() {
         } else {
             setHasScrolled(true);
         }
-    }, [messages])
+    }, [messageData])
 
     const dropdownRef = useRef(null);
     const stickerRef = useRef(null);
@@ -53,7 +53,6 @@ export default function GroupChat() {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, []);
-
 
     // Dropdown Function
     const [isOpen, setIsOpen] = useState(false);
@@ -101,7 +100,7 @@ export default function GroupChat() {
 
                 <div className="flex flex-row items-center justify-end gap-4 w-[30%]">
                     {/* Button Video Call */}
-                    <Link to='/video-call'  onClick={() => { if (isPlaying) { togglePlayPause(); } }} className='h-[24px] bounce bounce-delay-2 relative'>
+                    <Link to='/video-call' onClick={() => { if (isPlaying) { togglePlayPause(); } }} className='h-[24px] bounce bounce-delay-2 relative'>
                         {
                             !isVideoCall &&
                             <div className="absolute -top-2 -right-1 w-2.5 h-2.5 rounded-full bg-[var(--color-shadow)] animate-pulse"></div>
@@ -110,7 +109,7 @@ export default function GroupChat() {
                     </Link>
 
                     {/* Button Phone Call */}
-                    <Link to='/phone-call'  onClick={() => { if (isPlaying) { togglePlayPause(); } }} className='h-[24px] bounce bounce-delay-3 relative'>
+                    <Link to='/phone-call' onClick={() => { if (isPlaying) { togglePlayPause(); } }} className='h-[24px] bounce bounce-delay-3 relative'>
                         {
                             !isPhoneCall &&
                             <div className="absolute -top-2 -right-1 w-2.5 h-2.5 rounded-full bg-[var(--color-shadow)] animate-pulse"></div>
@@ -178,6 +177,30 @@ export default function GroupChat() {
                             </motion.div>
                         ))
                     }
+                    {messageData &&
+                        messageData.map((m, index) => (
+                            <motion.div key={index} className='w-full z-20'
+                                initial={{
+                                    opacity: 0,
+                                    y: 50
+                                }}
+                                whileInView={{
+                                    opacity: 1,
+                                    y: 0,
+                                    transition: {
+                                        type: "spring",
+                                        delay: 0.2,
+                                        duration: 1
+                                    }
+                                }}
+                                viewport={{
+                                    once: true,
+                                    amount: 1
+                                }}>
+                                <BubbleChat isSender={m.isSender} isSticker={m.message_data.isSticker} isImage={m.message_data.isImage} senderName={m.sender_name} isContinue={m.message_data.isContinue} message={m.message_data.message} timestamp={m.message_data.timestamp} />
+                            </motion.div>
+                        ))
+                    }
                     <div ref={messagesEndRef}></div>
                 </div>
             </div>
@@ -204,9 +227,17 @@ export default function GroupChat() {
                     <input value={name} onChange={(e) => setName(e.target.value)} required className='px-4 py-2 rounded-full w-[30%] border border-gray-300' type="name" placeholder="Name..."></input>
                     <input value={message} onChange={(e) => setMessage(e.target.value)} required className='px-4 py-2 rounded-full w-[50%] border border-gray-300' type="text" placeholder="Messages..."></input>
                     <button type="submit" className="w-[42px] h-[42px] bg-[var(--color-shadow)] rounded-full flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-4 text-white">
-                            <path d="M3.478 2.404a.75.75 0 0 0-.926.941l2.432 7.905H13.5a.75.75 0 0 1 0 1.5H4.984l-2.432 7.905a.75.75 0 0 0 .926.94 60.519 60.519 0 0 0 18.445-8.986.75.75 0 0 0 0-1.218A60.517 60.517 0 0 0 3.478 2.404Z" />
-                        </svg>
+                        {
+                            sendLoading ?
+                                <svg className='animate-spin size-4 text-white' xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24'>
+                                    <circle className='opacity-25' cx='12' cy='12' r='10' stroke='currentColor' strokeWidth='4'></circle>
+                                    <path className='opacity-75' fill='currentColor' d='M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z'></path>
+                                </svg>
+                                :
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-4 text-white">
+                                    <path d="M3.478 2.404a.75.75 0 0 0-.926.941l2.432 7.905H13.5a.75.75 0 0 1 0 1.5H4.984l-2.432 7.905a.75.75 0 0 0 .926.94 60.519 60.519 0 0 0 18.445-8.986.75.75 0 0 0 0-1.218A60.517 60.517 0 0 0 3.478 2.404Z" />
+                                </svg>
+                        }
                     </button>
                 </form>
             </footer>

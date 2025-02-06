@@ -29,16 +29,16 @@ const FloatingMusic = () => {
 
         switch (closest.corner) {
             case "topLeft":
-                setPosition({ top: 8, left: 8, right: "unset", bottom: "unset" });
+                setPosition({ top: 64, left: 20, right: "unset", bottom: "unset" });
                 break;
             case "topRight":
-                setPosition({ top: 8, right: 8, left: "unset", bottom: "unset" });
+                setPosition({ top: 64, right: 20, left: "unset", bottom: "unset" });
                 break;
             case "bottomLeft":
-                setPosition({ bottom: 8, left: 8, top: "unset", right: "unset" });
+                setPosition({ bottom: 64, left: 20, top: "unset", right: "unset" });
                 break;
             case "bottomRight":
-                setPosition({ bottom: 8, right: 8, top: "unset", left: "unset" });
+                setPosition({ bottom: 64, right: 20, top: "unset", left: "unset" });
                 break;
             default:
                 break;
@@ -50,7 +50,7 @@ const FloatingMusic = () => {
             drag
             dragElastic={1}
             dragMomentum={false}
-            dragTransition={{ bounceStiffness: 100, bounceDamping: 10 }}
+            dragTransition={{ bounceStiffness: 200, bounceDamping: 10 }}
             dragConstraints={{
                 top: 0,
                 left: 0,

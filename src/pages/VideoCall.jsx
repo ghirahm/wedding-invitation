@@ -1,13 +1,15 @@
-import Video from '../assets/videoCall.jpg';
-import OffCam from '../assets/offcam.jpg';
-
-import { Link } from 'react-router';
+import { useEffect } from 'react';
+import { Link, useNavigate } from 'react-router';
 
 import { motion } from 'framer-motion';
-import { useEffect } from 'react';
+
 import { useUserContext } from '../context/UserContext';
 
+import OffCam from '../assets/offcam.jpg';
+import Video from '../assets/undangan.webm';
+
 const VideoCall = () => {
+    const navigate = useNavigate();
     const { setIsVideoCall } = useUserContext();
 
     useEffect(() => {
@@ -31,7 +33,12 @@ const VideoCall = () => {
             </header>
 
             <div className='w-full h-screen bg-[var(--color-secondary)] z-0'>
-                <img src={Video} className='w-full h-full object-cover' />
+                <video
+                    src={Video}
+                    autoPlay
+                    playsInline
+                    className='w-full h-full object-cover'
+                    onEnded={() => navigate('/group-chat')}/>
             </div>
 
             <motion.div
@@ -43,7 +50,7 @@ const VideoCall = () => {
                     bottom: 0,
                 }}
                 dragElastic={1}
-                className='w-[120px] h-auto z-10 fixed bottom-32 right-4 rounded-lg overflow-hidden'>
+                className='w-[96px] h-auto z-10 fixed bottom-32 right-4 rounded-lg overflow-hidden'>
                 <img src={OffCam} className='w-full h-full object-cover' />
             </motion.div>
 

@@ -5,9 +5,10 @@ import { useEffect, useState } from "react";
 
 import { motion } from "framer-motion";
 
-import Image1 from '../assets/1.png'
-import Image2 from '../assets/2.png'
-import Image3 from '../assets/3.png'
+import Image1 from '../assets/A.jpg'
+import Image2 from '../assets/B.jpg'
+import Image3 from '../assets/C.jpg'
+
 import { useUserContext } from "../context/UserContext";
 
 const MediaPage = () => {
