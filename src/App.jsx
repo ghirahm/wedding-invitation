@@ -3,7 +3,7 @@ import { lazy, Suspense } from "react";
 import { createBrowserRouter, Route, createRoutesFromElements, RouterProvider } from 'react-router';
 
 // Components
-import { UserProvider } from './context/userContext';
+import { UserProvider } from './context/UserContext';
 
 // const SplashScreen = lazy(() => import("./pages/SplashScreen"));
 const JoinScreen = lazy(() => import("./pages/JoinScreen"));
