@@ -315,7 +315,7 @@ const GroupDescription = () => {
             </motion.section>
 
             {/* Section Group Iuran */}
-            <motion.section
+            {/*<motion.section
                 id='iuran'
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0, transition: { type: "spring", delay: 0.2, duration: 1 } }}
@@ -338,7 +338,7 @@ const GroupDescription = () => {
                         </div>
                     )}
                 </div>
-            </motion.section>
+            </motion.section>*/}
         </main>
     )
 }
