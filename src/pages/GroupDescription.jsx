@@ -11,16 +11,23 @@ import GroupLogo from '../assets/logoGroup.png';
 import Image1 from '../assets/A.jpg';
 import Image2 from '../assets/B.jpg';
 import Image3 from '../assets/C.jpg';
-import Image4 from '../assets/X1.jpg';
-import Image5 from '../assets/X2.jpg';
-import Image6 from '../assets/X3.jpg';
-import Image7 from '../assets/X4.jpg';
-import Image8 from '../assets/X5.jpg';
-import Image9 from '../assets/X6.jpg';
-import Image10 from '../assets/X7.jpg';
-import Image11 from '../assets/X8.jpg';
-import Image12 from '../assets/X9.jpg';
-import Image13 from '../assets/X10.jpg';
+import Image4 from '../assets/D.jpg';
+import Image5 from '../assets/E.jpg';
+import Image6 from '../assets/F.jpg';
+import Image7 from '../assets/G.jpg';
+import Image8 from '../assets/H.jpg';
+import Image9 from '../assets/I.jpg';
+import Image10 from '../assets/J.jpg';
+import Image11 from '../assets/X1.jpg';
+import Image12 from '../assets/X2.jpg';
+import Image13 from '../assets/X3.jpg';
+import Image14 from '../assets/X4.jpg';
+import Image15 from '../assets/X5.jpg';
+import Image16 from '../assets/X6.jpg';
+import Image17 from '../assets/X7.jpg';
+import Image18 from '../assets/X8.jpg';
+import Image19 from '../assets/X9.jpg';
+import Image20 from '../assets/X10.jpg';
 
 import DC from '../assets/dress.jpg'
 import Timeline from '../assets/timeline.jpg'
@@ -47,7 +54,14 @@ const GroupDescription = () => {
             Image10,
             Image11,
             Image12,
-            Image13
+            Image13,
+            Image14,
+            Image15,
+            Image16,
+            Image17,
+            Image18,
+            Image19,
+            Image20
         ]
     }
 
