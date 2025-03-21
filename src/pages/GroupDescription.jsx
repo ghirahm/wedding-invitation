@@ -112,7 +112,7 @@ const GroupDescription = () => {
     }, []);
 
     const handleCopy = () => {
-        const copyText = "5770706574";
+        const copyText = "Terima Kasih";
         if (navigator.clipboard && navigator.clipboard.writeText) {
             navigator.clipboard.writeText(copyText)
                 .then(() => {
